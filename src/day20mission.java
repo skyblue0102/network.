@@ -42,6 +42,7 @@ class Pokemon {
     }
 
     public void attack(int idx) {
+
         System.out.printf("%d 공격 시전!", skills[idx]);
     }
 }
@@ -89,7 +90,8 @@ class Pairi extends Pokemon {  //inheritance
     }
 
     public void attack(int idx) { //override
-        System.out.printf("[파읠파읠] %S의 %s가 %s 공격(불) 시전!\n",owner,name,skills[idx]);
+
+        System.out.printf("[파읠파읠] %S의 %s가 %s 공격(불) 시전!\n", this.owner,name,skills[idx]);
     }
 
 
