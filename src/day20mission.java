@@ -5,10 +5,11 @@
 //        # class field
 import java.util.Scanner;
 class Pokemon {
-    protected static int count = 0;
-    protected String owner = null;
-    protected String name = null;
+    public static int count = 0;
+    protected String owner;
+    protected String name;
     protected String[] skills;
+//    protected List<String> skills;
 
     public Pokemon(String owner, String skills) {
         this.owner = owner;  //like private
@@ -28,21 +29,23 @@ class Pokemon {
     }
 
     public void info() {
-        System.out.printf("%s의 포켓몬이 사용 가능한 스킬", owner);
+        System.out.println(this.owner+"의 포켓몬이 사용 가능한 스킬");
+        int i = 0;
+//        for (int i = 0; i < this.skills.length; i++) {
+//
+//            System.out.printf("\n%d : %s", i + 1, skills[i]);
 
-        for (int i = 0; i < this.skills.length; i++) {
-
-            System.out.printf("\n%d : %s", i + 1, skills[i]);
+        for(String skill : skills){
+            System.out.println(++i + ":" + skill);
 
 //            owner = property(get_owner, set_owner)
 //            for skill in self.skill:
 //              System.out.printf("%s",skill);
         }
-        System.out.println();
+
     }
 
     public void attack(int idx) {
-
         System.out.printf("%d 공격 시전!", skills[idx]);
     }
 }
