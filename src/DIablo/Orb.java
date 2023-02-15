@@ -1,3 +1,5 @@
+package DIablo;
+
 import DIablo.WeaponBehavior;
 
 public class Orb implements WeaponBehavior {

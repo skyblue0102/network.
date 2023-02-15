@@ -1,3 +1,5 @@
+package DIablo;
+
 import DIablo.Axe;
 import DIablo.Barbarian;
 import DIablo.Bow;
