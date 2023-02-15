@@ -7,7 +7,7 @@ public class Barbarian extends Character {
     }
 
     @Override
-    void info() {
+    public void info() {
 
     }
 }

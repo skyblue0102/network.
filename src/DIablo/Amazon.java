@@ -7,7 +7,7 @@ public class Amazon extends Character {
     }
 
     @Override
-    void info() {
+    public void info() {
 
     }
 }
