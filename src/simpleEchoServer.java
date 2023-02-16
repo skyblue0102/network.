@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.StringTokenizer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 // IP 165.246.115.165 포트 20000
@@ -11,7 +12,6 @@ import java.util.concurrent.Executors;
 public class simpleEchoServer implements Runnable {
     // 다중 접속 에코 서버
     private static Socket clientSocket;
-
     public simpleEchoServer(Socket clientSocket)
     {
         this.clientSocket = clientSocket;
@@ -37,14 +37,19 @@ public class simpleEchoServer implements Runnable {
     @Override
     public void run() {
         System.out.println(Thread.currentThread() + " 스레드 접속");
+
         try (
                 BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)
         ) {
             String inputLine;
             while ((inputLine = br.readLine()) != null) {
-                System.out.println(Thread.currentThread() +" 클라이언트가 보낸 메세지 : " + inputLine);
-                out.println(inputLine);
+                System.out.println(clientSocket.getRemoteSocketAddress().toString() + " " + Thread.currentThread() +" 클라이언트가 보낸 메세지 : " + inputLine);
+                StringTokenizer st = new StringTokenizer(inputLine);
+                while (st.hasMoreTokens()){
+                    System.out.println(st.nextToken()+"+");
+                }
+                out.println(st.nextToken());
             }
             System.out.println(Thread.currentThread() +" 클라이언트가 종료됨"); }
         catch (IOException ex)
