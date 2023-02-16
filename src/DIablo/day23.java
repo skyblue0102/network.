@@ -13,7 +13,7 @@ public class day23 {
         Bow windForce = new Bow();
         Axe berserkerAxe = new Axe();
         b1.setWeapon(berserkerAxe);
-        s1.setWeapon(windForce); //get weapon
+        s1.setWeapon((WeaponBehavior) windForce); //get weapon
         s1.performWeapon();
         b1.performWeapon();
         s1.setWeapon(new Axe());

@@ -1,28 +1,27 @@
-public class day22mission {
-    public static void main(String[] args) {
-        int alphabet = 'a';
-        Thread thread = new Worker();
-        thread.start();
-        for(int p=0;p<11;p++){
 
-            System.out.printf("메인스레드: %s\n",(char) (alphabet+p));
-            try {
-                thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+class Worker extends Thread {
+    public void run() {
+        try {
+            for (int i = 0; i < 5; i++) {
+                System.out.println("작업 스레드 : " + i);
+                Thread.sleep(1000);
             }
+        } catch (InterruptedException e) {
         }
     }
 }
-class Worker extends Thread{
-    public void run(){
-        for (int i=0;i<5;i++){
-            System.out.printf("작업 스레드: %d\n",i);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+
+public class day22mission {
+    public static void main(String args[]) {
+        int alphabet = 'a';
+        Worker worker = new Worker();
+        worker.start();
+        try {
+            while (worker.isAlive()) {
+                System.out.println("메인 스레드 : " + (char) alphabet++);
+                Thread.sleep(500);
             }
+        } catch (InterruptedException e) {
         }
     }
 }

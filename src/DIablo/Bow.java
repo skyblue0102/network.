@@ -1,6 +1,6 @@
 package DIablo;
 
-public class Bow implements WeaponBehavior {
+public class Bow implements DIablo.WeaponBehavior {
 
     @Override
     public void useWeapon() {
