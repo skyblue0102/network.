@@ -12,8 +12,7 @@ public class day22 {
                 String dateText = new Date().toString();
                 byte[] buffer = new byte[256];
                 buffer = dateText.getBytes();
-                InetAddress group =
-                        InetAddress.getByName("224.0.0.0");
+                InetAddress group = InetAddress.getByName("224.0.0.0");
                 DatagramPacket packet;
                 packet = new DatagramPacket(buffer, buffer.length, group, 10000);
                 serverSocket.send(packet);
