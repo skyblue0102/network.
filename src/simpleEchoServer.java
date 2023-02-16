@@ -45,13 +45,42 @@ public class simpleEchoServer implements Runnable {
             String inputLine;
             while ((inputLine = br.readLine()) != null) {
                 System.out.println(clientSocket.getRemoteSocketAddress().toString() + " " + Thread.currentThread() +" 클라이언트가 보낸 메세지 : " + inputLine);
-                StringTokenizer st = new StringTokenizer(inputLine);
-                while (st.hasMoreTokens()){
-                    System.out.println(st.nextToken()+"+");
-                }
-                out.println(st.nextToken());
-            }
-            System.out.println(Thread.currentThread() +" 클라이언트가 종료됨"); }
+                try{
+                    StringTokenizer st = new StringTokenizer(inputLine, "+-*/",true);
+                    int result = 0, operand = 0;
+                    char operator = '+';
+
+                    while(st.hasMoreTokens()) {
+                        String token = st.nextToken().trim();
+
+                        if ("+-*/".indexOf(token) >= 0) {
+                            operator = token.charAt(0);
+                        } else {
+                            operand = Integer.parseInt(token);
+
+                            switch (operator) {
+                                case '+':
+                                    result += operand;
+                                    break;
+                                case '-':
+                                    result -= operand;
+                                    break;
+                                case '*':
+                                    result *= operand;
+                                    break;
+                                case '/':
+                                    result /= operand;
+                                    break;
+                            }
+                        }
+                    }
+                            out.println(inputLine+"="+result);
+
+
+                        }catch (NumberFormatException err){
+                                out.println("유효하지 않은 입력 값입니다. 숫자를 입력해주세요.");
+                        }
+                }System.out.println(Thread.currentThread() +" 클라이언트가 종료됨"); }
         catch (IOException ex)
         {
             System.out.println("입출력 예외 발생!");
