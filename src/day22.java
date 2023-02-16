@@ -1,36 +1,32 @@
 import java.io.IOException;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Date;
 
+
 public class day22 {
-    public static void main(String args[]) {
-        System.out.println("멀티캐스트 타임 서버");
-        DatagramSocket serverSocket = null; //UDP지원 프로토콜
+    public static void main(String[] args) {
+        System.out.println("NIO 타임 서버");
         try {
-            serverSocket = new DatagramSocket();
+            ServerSocketChannel sc = ServerSocketChannel.open();
+            sc.socket().bind(new InetSocketAddress(20000));
             while (true) {
-                String dateText = new Date().toString();
-                byte[] buffer = new byte[256];
-                buffer = dateText.getBytes();
-                InetAddress group = InetAddress.getByName("224.0.0.0");
-                DatagramPacket packet;
-                packet = new DatagramPacket(buffer, buffer.length, group, 10000);
-                serverSocket.send(packet);
-                System.out.println("전송된 시간: " + dateText);
-
-                try {
-                    Thread.sleep(1000); //1초 단위로 딜레이
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                System.out.println("Waiting for request...");
+                SocketChannel socketChannel = sc.accept();
+                if (socketChannel != null) {
+                    String dt = "Date: " + new Date(System.currentTimeMillis());
+                 ByteBuffer buf = ByteBuffer.allocate(64);
+                 buf.put(dt.getBytes());
+                 buf.flip();
+                while (buf.hasRemaining()) {
+                //    sc.write();
                 }
-
-            }
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            }}
+        }catch (IOException ex) {
+            System.out.println("입출력 예외 발생");
         }
     }
 }
+
