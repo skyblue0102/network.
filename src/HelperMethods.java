@@ -50,7 +50,7 @@ public class HelperMethods {
 
     public static String receiveMessage(SocketChannel socketChannel) {
         try {
-            ByteBuffer byteBuffer = ByteBuffer.allocate(16);
+            ByteBuffer byteBuffer = ByteBuffer.allocate(3);
             String message = "";
             while (socketChannel.read(byteBuffer) > 0) {
                 char byteRead = 0x00;

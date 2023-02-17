@@ -11,13 +11,12 @@ public class ChatServer {
         System.out.println("Chat Server started");
         try {
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-            serverSocketChannel.socket().bind(new InetSocketAddress(5000));
+//            serverSocketChannel.socket().bind(new InetSocketAddress(5000));
 
             boolean running = true;
             while (running) {
                 System.out.println("Waiting for request ...");
-                SocketChannel socketChannel
-                        = serverSocketChannel.accept();
+                SocketChannel socketChannel = serverSocketChannel.accept();
 
                 System.out.println("Connected to Client");
                 String message;
@@ -26,17 +25,17 @@ public class ChatServer {
                     System.out.print("> ");
                     message = scanner.nextLine();
                     if (message.equalsIgnoreCase("quit")) {
-                        HelperMethods.sendFixedLengthMessage(socketChannel, "Server terminating");
-//                        HelperMethods.sendMessage(socketChannel, "Server terminating");
+//                        HelperMethods.sendFixedLengthMessage(socketChannel, "Server terminating");
+                        HelperMethods.sendMessage(socketChannel, "Server terminating");
                         running = false;
                         break;
                     } else {
-                        HelperMethods.sendFixedLengthMessage(socketChannel, message);
-//                        HelperMethods.sendMessage(socketChannel, message);
+//                        HelperMethods.sendFixedLengthMessage(socketChannel, message);
+                        HelperMethods.sendMessage(socketChannel, message);
                         // Receive message
                         System.out.println("Waiting for message from client ...");
-                        System.out.println("Message: "+HelperMethods.receiveFixedLengthMessage(socketChannel));
-//                        System.out.println("Message: " + HelperMethods.receiveMessage(socketChannel));
+//                        System.out.println("Message: "+HelperMethods.receiveFixedLengthMessage(socketChannel));
+                        System.out.println("Message: " + HelperMethods.receiveMessage(socketChannel));
                     }
                 }
             }
