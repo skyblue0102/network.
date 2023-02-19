@@ -1,3 +1,7 @@
+package Challenge;
+
+import Challenge.Shape;
+
 import java.util.ArrayList;
 import java.util.List;
 
