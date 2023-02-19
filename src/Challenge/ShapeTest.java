@@ -1,32 +1,27 @@
 package Challenge;
-//2
+//3
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 
 public class ShapeTest {
     public static void main(String[] args) {
-        List<Shape> rectagles = findShapes(Shape.shapes, "사각형",null,null);
         System.out.print("사각형 : ");
-        System.out.println(rectagles);
-        List<Shape> redNSmallShapes = findShapes(Shape.shapes, null, "빨간색",12.0);
+        System.out.println(findShapes(Shape.shapes, s -> s.getType().equals("사각형")));
         System.out.print("빨간 도형(면적<=12.0) : ");
-        System.out.println(redNSmallShapes);
+        System.out.println(findShapes(Shape.shapes, s -> s.getColor().equals("빨간색") && s.getArea() <= 12.0));
     }
 
-    static List<Shape> findShapes(List<Shape> shapes, String type, String color, Double area) {
+    static List<Shape> findShapes(List<Shape> animals, Predicate<Shape> p) {
         List<Shape> result = new ArrayList<>();
-        for (Shape s : shapes) {
-            if (type!=null) {
-                if (s.getType().equals(type))
-                    result.add(s);
-            }
-            else {
-                if (s.getColor().equals(color) && s.getArea() <= area)
-                    result.add(s);
-            }
-        }return result;
-        }
+        for (Shape a : animals) {
+            if (p.test(a)) {
+                result.add(a);
+            }}
+        return result;
+
+    }
 }
 
