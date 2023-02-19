@@ -28,7 +28,7 @@ public class ShapeTest {
 
 
 
-    static List<Shape> findShapesByType(List<Shape> shapes, String 사각형) {
+    static List<Shape> findShapesByType(List<Shape> shapes, String type) {
         List<Shape> result = new ArrayList<>();
         for (Shape s : shapes) {
             if (s.getType().equals("사각형"))
