@@ -37,7 +37,7 @@ public class HelperMethods {
         try {
             ByteBuffer buffer = ByteBuffer.allocate(message.length() + 1);
             buffer.put(message.getBytes());
-            buffer.put((byte) 0x00);
+            buffer.put((byte) 0x00); //문자열의 끝
             buffer.flip();
             while (buffer.hasRemaining()) {
                 socketChannel.write(buffer);
@@ -62,6 +62,7 @@ public class HelperMethods {
                     }
                     message += byteRead;
                 }
+                System.out.println(message);
                 if (byteRead == 0x00) {
                     break;
                 }
